@@ -1,0 +1,415 @@
+/*  
+block(box) - 옆에 다른 요소가 못 오게 함 / 높이와 너비를 가질 수 없음
+    div - inline-black 반응형에 반응하지 않고, 창 크기에 영향을 받는다.
+          inline 높이와 넓이가 무시되며 box가 없어진다.
+
+inline - 다른 요소가 올 수 있게 함 / 높이와 너비를 가질 수 있음
+    span a image 
+
+span - inline 이라 margin(좌 우 가능) 위, 아래를 가질 수 없음
+
+margin - box의 border의 바깥에 있는 공간
+    margin: 20px 15px 10px 5px  - top right bottom left
+    margin: 20px 15px;          - 위/아래   오른쪽/왼쪽 
+    margin: 10px;               - 상하좌우
+
+border - box의 경계선
+    border: 1px solid black;
+                dashed - 점선
+    border-radius: 10px;
+
+padding - box의 경계로부터 안쪽에 있는 공간
+    padding: 20px 15px 10px 5px  - top right bottom left
+    padding: 20px 15px;          - 위/아래   오른쪽/왼쪽 
+    padding: 10px;               - 상하좌우
+
+flexbox 
+    1. 자식에게 명시하지 않고 부모에게 명시한다
+        - div의 부모를 display:flex로 만든다.
+    2. 주축(수평-왼쪽에서 오른쪽으로) - main axis
+        justify-content
+    3. 교차축(수직-위에서 아래로) - cross axis
+        align-items
+    4. 부모가 heigh 있어야 높이가 변한다.  
+
+    자식이 안에 item애 있다면 또다른 flexbox를 사용할수 있음.
+
+position - 레이아웃보다는..위치를 아주 조금 위로 아주 조금 오른쪽으로 옮기고 싶을때 사용
+  fixed - 현제 위치에 고정시킴
+  static(디폴트) - 레이아웃이 박스를 처음 위치하는 곳에 두는 것
+  relative - 살짝씩 위치를 옴길때 사용 (top:-10px; left:-10px;)
+  absolute - 부모의 relative를 찾아 위치를 변경한다.
+             부모는 position:relative; 로 지정되어있어야하고,
+             자식은 position:absolute; top:0px; bottom:0px; 로 사용
+ 
+pseudo selectors - 좀 더 세부적으로 엘리먼트를 선택해줌
+  .flexbox__div div:first-child
+  .flexbox__div div:nth-child(2)
+  .flexbox__div div:nth-child(3n + 1) - 3개씩 적용 반복
+  .flexbox__div div:last-child 
+  .flexbox__div div:nth-child(even) - 짝수로 적용
+  .flexbox__div div:nth-child(odd) - 홀수 적용
+
+> + ~ 를 사용해 형제를 찾는 방법  
+div 바로 밑 자식에서 span을 찾는 방법  
+  div > span === p span : 첫번째 자식선택 (바로 밑에 있는 자식)
+  p + span : p 안에있는 span을 찾는게 아니라 그아음에 있는 세번재 span을 찾음
+  <div>
+  <span>hello</span> (첫번째 자식 : > )
+  <p>hello <span>bing</span></p> (두번째 자식)
+  <span>hello</span> (세번째 자식)
+  </div>
+  ~ : span이 p의 형제인데 바로 뒤에 오지 않을 때 사용
+  p ~ span : 세번재 자식 선택
+  <div>
+    <p>hello <span>bing</span></p> (두번째 자식)
+    <address>000-0000-000</address> (첫번째 자식 : > )
+    <span>hello</span> (세번째 자식)
+  </div>
+ 
+attribute
+  input:required {}
+  input[placeholder~="name"] {} : placeholder에 name이라는 단어가 있으면 적용
+  a[href$=".org"] {} : .org로 끝나는 웹사이트로 가라는 링크
+
+
+state
+:active : 버튼을 누르고 있으면 색상이 변함
+:hover : 마우스를 가져가면 이벤트 발생
+:focus : 키보드로 선택되었을 때를 말함
+:visited: 링크에만 적용됨(방문했을 경우 색상 변경)
+:focus-within : 부모의 안에 어떤 것이든 focused되면 이벤트 발생
+
+::placeholder : input의 placeholder을 꾸미고 싶을경우 사용
+::selection : <p> 적용했을 경우 드레그 하면 색상이 변경 됨
+::first-letter : 첫번째 단어만 색상 및 글씨 형태 크기 적용
+::first-line : 첫번째 줄 만 적용
+
+color
+  :root {
+    --main-color: #fcce00;
+    --default-border: 1px solid var(--main-color)
+  }
+  p {
+    background-color: var(--main-color);
+    border: var(--default-border);
+  }
+
+
+  
+Transition - 어떤상태에서 다른상태로의 변화를 애니메이션으로 만드는 방법
+  - transition 속성은 state가 없는 요소에 붙어야함
+      a:hove{} X , a{} Ok
+      부모에도 있고 자식에게도 있는 속성을 변화 시킬수 있음
+      transition: all 2s ease-in-out;
+  
+Transformation - 회전을 시킨다
+  - transform은 box element를 변형시키지 않음
+      transform: rotateY(180deg);
+      scale(2, 2); 2배로 커진다.
+  
+Animation - 효과 굿
+  
+media - 화면의 크기에따라 auto 변경
+  참조 : https://stonefree.tistory.com/481
+  스크린이 최대넓이 보다 작으면 컬러 변경
+  @media screen and (min-width: 650px) and (max-width: 750px)
+  @media screen and (최소넓이) and (최대넓이){
+    div {
+      background-color: tomato;
+    }
+  }
+  max-width - 최대넓이
+  min-width - 최소넓이
+  orientation: portrait - 가로, 세로모드 인식
+  min-device-width - 핸드폰에서만 인식
+
+  @media print { - 프린트기를 사용할 경우 인식
+    body {
+      background-color: tomato;
+    }
+  }
+
+
+
+
+*/
+/* 100vh - 전체 화면 100%로 설정 */
+
+html {
+  background-color: brown;
+}
+body {
+  box-sizing: border-box;
+  background-color: chocolate;
+  padding: 10px;
+}
+
+.box__div__0 {
+  background-color: burlywood;
+  width: 150px;
+  height: 150px;
+
+  /* 초기에위차한 자리에 위치를 고정시킴 */
+  /* top, left, right, bottom 중 하나만 수정해도 위로 가게됨 */
+  position: fixed;
+}
+.box__div__1 {
+  background-color: aquamarine;
+  width: 100px;
+  height: 100px;
+}
+.box__div__2 {
+  background-color: blueviolet;
+  width: 50px;
+  height: 50px;
+}
+.box__div__3 {
+  background-color: chartreuse;
+  width: 25px;
+  height: 25px;
+}
+.flexbox__div {
+  margin: 20px;
+  padding-bottom: 60px;
+  display: flex; /* 부모 flex */
+  justify-content: space-between;
+  align-items: center;
+  /* flex-direction - 교차축 변경 
+  column, row, row/column-reverse(밑에서 시작해서 위로 올라감) 3 2 1 */
+  /* flex-direction: column; */
+
+  /* flex-wrap 
+  wrap-크기를 유지 하며 다음칸으로 내려간다, nowrap-반응형으로 변한다 
+  wrap-reverse- 역으로 순서를 정한다. 3 2 1*/
+  /* flex-wrap: wrap; */
+}
+.flexbox__div div:first-child,
+.flexbox__div div:nth-child(2),
+.flexbox__div div:last-child {
+  margin-top: 170px;
+  background-color: greenyellow;
+  height: 100px;
+  width: 100px;
+  display: flex; /* 자식 flex */
+  justify-content: center;
+  align-items: center;
+}
+.position__div {
+  margin-bottom: 60px;
+  height: 150px;
+  width: 150px;
+  background-color: bisque;
+  position: relative;
+}
+.position__relative {
+  background-color: green;
+  height: 100px;
+  width: 100px;
+  position: absolute; /* 부모의 relative 찾아 위치 시킨다.*/
+  right: 0px;
+  top: 0px;
+}
+
+/* media */
+.media__q {
+  margin-bottom: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.media__div {
+  height: 200px;
+  width: 200px;
+  background-color: teal;
+}
+/* 노트북 & 테블릿 가로 (해상도 1024px ~ 1279px)*/
+@media all and (min-width: 1024px) and (max-width: 1279px) {
+  .media__div {
+    background-color: tomato;
+  }
+}
+
+/* 테블릿 가로 (해상도 768px ~ 1023px)*/
+@media all and (min-width: 768px) and (max-width: 1023px) {
+  .media__div {
+    background-color: black;
+  }
+}
+
+/* 모바일 가로 & 테블릿 세로 (해상도 480px ~ 767px)*/
+@media all and (min-width: 480px) and (max-width: 767px) {
+  .media__div {
+    background-color: red;
+  }
+}
+
+/* 모바일 세로 (해상도 ~ 479px)*/
+@media all and (max-width: 479px) {
+  .media__div {
+    background-color: blue;
+  }
+}
+/* 
+@media screen and (max-width: 600px) {
+  .media__div {
+    background-color: tomato;
+  }
+}
+@media screen and (min-width: 601px) and (max-width: 1200px) {
+  .media__div {
+    background-color: blueviolet;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .media__div {
+    background-color: red;
+  }
+}
+ */
+.pseudo_selectors_span {
+  margin-bottom: 120px;
+}
+.pseudo_selectors_span span {
+  background-color: tomato;
+}
+.pseudo_selectors_span span:nth-child(3n + 1) {
+  background-color: bisque;
+}
+.span__0 {
+  background-color: teal;
+  padding: 20px;
+  margin: 30px;
+  color: white;
+  border-radius: 10px;
+}
+.margin__100 {
+  margin-top: 100px;
+}
+h1 {
+  color: blue;
+  text-decoration: underline; /* 밑줄 */
+  font-size: 60px;
+  font-weight: 600;
+  font-style: italic;
+  text-align: center;
+}
+input {
+  border: 1px solid wheat;
+}
+
+input:required {
+  border-color: tomato;
+}
+
+input[placeholder~="name"] {
+  background-color: pink;
+}
+
+/* button:active { */
+/* button:hover { */
+/* input:focus { */
+a:visited {
+  color: aqua;
+  background-color: tomato;
+}
+form {
+  border: 3px solid black;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+form:focus-within {
+  border-color: seagreen;
+}
+form:hover input:focus {
+  /* form안에 마우스를 가져가고 input를 클릭하면 색상 변경 */
+  background-color: aqua;
+}
+p::selection {
+  color: white;
+  background-color: chartreuse;
+}
+p::first-letter {
+  font-size: 32px;
+  color: white;
+  background-color: chartreuse;
+}
+
+.transition__a {
+  margin-bottom: 50px;
+}
+.transition__a a {
+  color: wheat;
+  background-color: tomato;
+  text-decoration: none;
+  padding: 3px 5px;
+  border-radius: 5px;
+  font-size: 55px;
+  transition: all 1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+.transition__a a:hover {
+  border-radius: 20px;
+  color: tomato;
+  background-color: wheat;
+  cursor: pointer;
+}
+
+img {
+  border: 5px solid black;
+  border-radius: 50%;
+  transition: transform 10s ease-in-out;
+}
+img:hover {
+  transform: rotateZ(360deg) scale(2, 2);
+}
+
+.animation__span {
+  animation: superSexyCoinFlip 10s ease-in-out infinite;
+}
+
+@keyframes superSexyCoinFlip {
+  0% {
+    transform: rotateY(0);
+  }
+  50% {
+    transform: rotateY(0) translateX(10%);
+  }
+  100% {
+    transform: rotateY(0);
+  }
+}
+
+/* 움직이는 텍스트 */
+.animated-title {
+  font-size: 60px;
+  font-family: "Raleway", Sans-serif;
+  font-weight: 300;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  padding: 100px 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+.animated-title .track {
+  position: absolute;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee 60s linear infinite;
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (hover: hover) and (min-width: 700px) {
+  .animated-title .content {
+    -webkit-transform: translateY(calc(100% - 8rem));
+    transform: translateY(calc(100% - 8rem));
+  }
+}
