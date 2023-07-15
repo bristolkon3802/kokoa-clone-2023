@@ -1,0 +1,39 @@
+.login-form {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 30px;
+}
+
+.login-form__input {
+  border: none;
+  padding: 15px 0px;
+  font-size: 18px;
+  margin-bottom: 25px;
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+  transition: border-color 0.3s ease-in-out;
+}
+
+.login-form__input::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.login-form__input:focus {
+  border-color: var(--yellow);
+}
+
+.login-form__submit,
+.login-form__btn {
+  background-color: var(--yellow);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 20px 0px;
+  margin-bottom: 15px;
+}
+
+.login-form__a {
+  text-align: center;
+  text-decoration: none;
+  color: inherit; /* 부모의 색을 상속받는다, login-form 은 기본 검정이다. */
+  font-size: 13px;
+}

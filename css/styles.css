@@ -1,0 +1,31 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css");
+
+@import "reset.css"; /* 초기화 */
+@import "variables.css"; /* 색상 */
+
+/* components */
+@import "components/status-bar.css"; /* 상단화면 */
+@import "components/nav-bar.css"; /* 하단 네비게이션 */
+@import "components/screen-header.css"; /* 상단 header */
+@import "components/user-components.css"; /* 유저 프로필 */
+@import "components/badge.css";
+
+/* screens */
+@import "screens/login.css"; /* 로그인 화면 */
+@import "screens/friends.css";
+
+* {
+  box-sizing: border-box; /* box 사이를 늘리지 말고 유지하라고 알려줌 */
+}
+
+body {
+  font-family: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  color: #2e363e;
+}
+
+.main-screen {
+  padding: 0px var(--horizontal-space);
+}
