@@ -22,11 +22,23 @@
   z-index: 1;
 }
 
+@keyframes fadeIn {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
 .main-chat {
-  margin-top: 150px;
+  margin-top: 180px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  animation: fadeIn 0.8s linear;
 }
 
 .chat__timestamp {
@@ -117,6 +129,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 5px 25px;
+  transition: transform 0.3s ease-in-out;
 }
 
 .reply i {
@@ -138,6 +151,7 @@
   border: var(--main-border);
   border-radius: 20px;
   padding-left: 15px;
+  transition: all 0.3s ease-in-out;
 }
 
 .reply__column:first-child i {
@@ -173,4 +187,25 @@
 .reply__column button:active {
   /* button 클릭해도 아무일도 일어나지 않음 */
   outline: none;
+}
+
+.reply .fa-face-smile,
+.reply .reply__column:first-child,
+.reply button {
+  transition: opacity 0.3 ease-in-out;
+}
+
+.reply:focus-within .reply__column:first-child,
+.reply:focus-within .fa-face-smile,
+.reply:focus-within button {
+  opacity: 0;
+}
+
+.reply input:focus {
+  width: 96vw;
+  transform: translateX(-14%) translateY(-80px);
+}
+
+.reply:focus-within {
+  transform: translateY(80px);
 }
